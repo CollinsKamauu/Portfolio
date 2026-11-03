@@ -14,7 +14,7 @@ export default function Navbar() {
       <div className="flex items-center">
         <a href="#home" className="flex items-center focus:outline-none">
           <img 
-            src="/Logo.svg" 
+            src="Logo.svg" 
             alt="Portfolio Logo" 
             className="h-6 md:h-8 w-auto object-contain" 
           />

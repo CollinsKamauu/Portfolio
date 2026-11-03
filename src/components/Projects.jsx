@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 
+// 1. Import all your project images directly from src/assets/
+import chamaDash from '../assets/chama/ChamaAppDashboard.png';
+import chamaFin from '../assets/chama/ChamaAppFinances.png';
+import chamaContrib from '../assets/chama/ChamaAppContributions.png';
+
+import sokoHome from '../assets/sokokuu/SokoKuuHomepage.png';
+import sokoOrder from '../assets/sokokuu/SokoKuuOrderPage.png';
+import sokoDelivery from '../assets/sokokuu/DeliveryDetails.png';
+
+import kiwiHome from '../assets/kiwilabs/KiwiLabsHomepage.png';
+
 export default function Projects() {
-  // State to manage the currently expanded full-screen preview image
+  // State to manage the currently active full-screen preview image
   const [activeImage, setActiveImage] = useState(null);
 
   const projectsList = [
@@ -14,11 +25,7 @@ export default function Projects() {
       tags: ['React', 'Tailwind CSS', 'Node.js', 'M-Pesa API'],
       github: 'https://github.com/CollinsKamauu/Chama-Web-App.git',
       live: 'https://milestonechama.netlify.app/',
-      images: [
-        '/Chama App/ChamaAppDashboard.png',
-        '/Chama App/ChamaAppFinances.png',
-        '/Chama App/ChamaAppContributions.png',
-      ],
+      images: [chamaDash, chamaFin, chamaContrib],
     },
     {
       id: 2,
@@ -28,11 +35,7 @@ export default function Projects() {
       tags: ['React', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
       github: 'https://github.com',
       live: 'https://example.com',
-      images: [
-        '/Soko Kuu/SokoKuuHomepage.png',
-        '/Soko Kuu/SokoKuuOrderPage.png',
-        '/Soko Kuu/DeliveryDetails.png',
-      ],
+      images: [sokoHome, sokoOrder, sokoDelivery],
     },
     {
       id: 3,
@@ -42,9 +45,7 @@ export default function Projects() {
       tags: ['Figma', 'Elementor', 'WordPress', 'UI/UX Design'],
       github: 'https://github.com',
       live: 'https://example.com',
-      images: [
-        '/Kiwi Labs/KiwiLabsHomepage.png',
-      ],
+      images: [kiwiHome],
     },
   ];
 
