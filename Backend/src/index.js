@@ -3,11 +3,15 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import app from "./app.js";
+import cors from 'cors';
 
 // Load environment variables
 dotenv.config({
     path: './.env'
 });
+
+// Use CORS middleware
+app.use(cors());
 
 
 const PORT = process.env.PORT || 4000;
