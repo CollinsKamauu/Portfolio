@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaGithub, FaWhatsapp, FaPaperPlane } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -8,15 +9,38 @@ export default function Contact() {
     phone: '',
     message: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., fetch API / Web3Forms / EmailJS)
-    console.log('Form Submitted:', formData);
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:4000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong. Please try again.');
+      }
+
+      toast.success('Message sent successfully!');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      toast.error(error.message || 'Failed to send message.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,18 +49,15 @@ export default function Contact() {
         
         {/* COLUMN 1: Details & Social Links */}
         <div className="flex flex-col justify-between space-y-8">
-          
-          {/* Row 1: Heading & Paragraph */}
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
               Get in <span className="text-teal-400">Touch</span>
             </h2>
             <p className="text-zinc-400 mt-4 text-sm md:text-base leading-relaxed">
-              I'm open to consultation, collaborations, or inquiries. Feel free to reach out.
+              I'm open to consultation, collaborations, or inquiries. Feel free to reach out!
             </p>
           </div>
 
-          {/* Row 2: GitHub & WhatsApp Icons */}
           <div className="flex items-center space-x-4 pt-2">
             <a
               href="https://github.com/CollinsKamauu"
@@ -49,7 +70,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="https://wa.me/" // Replace with your phone number link e.g. https://wa.me/254717435718
+              href="https://wa.me/254717435718"
               target="_blank"
               rel="noreferrer"
               aria-label="WhatsApp Contact"
@@ -58,14 +79,12 @@ export default function Contact() {
               <FaWhatsapp />
             </a>
           </div>
-
         </div>
 
         {/* COLUMN 2: Contact Form */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             
-            {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                 Name <span className="text-teal-400">*</span>
@@ -82,7 +101,6 @@ export default function Contact() {
               />
             </div>
 
-            {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                 Email Address <span className="text-teal-400">*</span>
@@ -99,16 +117,14 @@ export default function Contact() {
               />
             </div>
 
-            {/* Phone Number Field */}
             <div>
               <label htmlFor="phone" className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-                Phone Number <span className="text-teal-400">*</span>
+                Phone Number <span className="text-zinc-600 font-normal">(Optional)</span>
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
-                required
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+254 700 000 000"
@@ -116,14 +132,14 @@ export default function Contact() {
               />
             </div>
 
-            {/* Optional Message Field */}
             <div>
               <label htmlFor="message" className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-                Message
+                Message <span className="text-teal-400">*</span>
               </label>
               <textarea
                 id="message"
                 name="message"
+                required
                 rows="4"
                 value={formData.message}
                 onChange={handleChange}
@@ -132,12 +148,12 @@ export default function Contact() {
               ></textarea>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full flex items-center justify-center space-x-2 px-6 py-3.5 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-500 rounded-xl transition shadow-lg hover:shadow-teal-500/25 active:scale-[0.99]"
+              disabled={loading}
+              className="w-full flex items-center justify-center space-x-2 px-6 py-3.5 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-500 rounded-xl transition shadow-lg hover:shadow-teal-500/25 active:scale-[0.99] disabled:opacity-50"
             >
-              <span>Send</span>
+              <span>{loading ? 'Sending...' : 'Send Message'}</span>
               <FaPaperPlane className="text-xs" />
             </button>
 
