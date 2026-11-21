@@ -6,7 +6,20 @@ const app = express(); //creates an express app
 
 
 //Routes declaration
-app.use(cors());
+app.use(
+    cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+
 app.use(express.json());
 
 //Mount contact routes
