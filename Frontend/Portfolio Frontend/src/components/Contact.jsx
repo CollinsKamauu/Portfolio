@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { FaGithub, FaWhatsapp, FaPaperPlane } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -20,7 +21,7 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      const response = await fetch('https://portfolio-waop.onrender.com/api/contact', {
+      const response = await fetch('https://portfolio-wogp.onrender.com/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -9,30 +9,24 @@ export default function Navbar() {
 
   return (
     <nav className="bg-zinc-900 text-white px-6 md:px-20 py-8 flex justify-between items-center sticky top-0 z-50 shadow-md">
-      
-      {/* Logo */}
-      <div className="flex items-center">
-        <a href="#home" className="flex items-center focus:outline-none">
-          <img 
-            src="Logo.svg" 
-            alt="Portfolio Logo" 
-            className="h-6 md:h-8 w-auto object-contain" 
-          />
-        </a>
-      </div>
+      {/* Optional Left Brand / Logo:
+      <a href="#top" className="text-lg font-bold tracking-wide">
+        COLLINS KAMAU
+      </a>
+      */}
 
-      {/* Desktop Navigation Links */}
-      <div className="hidden md:flex space-x-8 text-sm font-medium">
+      {/* Desktop Navigation Links (pushed to the right) */}
+      <div className="hidden md:flex ml-auto space-x-8 text-sm font-medium">
         <a href="#skills" className="hover:text-teal-400 transition">Skills</a>
         <a href="#projects" className="hover:text-teal-400 transition">Projects</a>
         <a href="#contact" className="hover:text-teal-400 transition">Contact</a>
       </div>
 
-      {/* Hamburger Button (Mobile Only) */}
+      {/* Hamburger Button (Mobile Only, pushed to the right) */}
       <button
         onClick={toggleMenu}
         aria-label="Toggle Navigation Menu"
-        className="md:hidden flex flex-col justify-center items-center w-8 h-8 focus:outline-none z-50"
+        className="md:hidden ml-auto flex flex-col justify-center items-center w-8 h-8 focus:outline-none z-50"
       >
         {/* Top Bar */}
         <span
