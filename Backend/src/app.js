@@ -4,6 +4,10 @@ import contactRoutes from "./routes/contact.routes.js";
 
 const app = express(); //creates an express app
 
+const allowedOrigins = [
+  'https://collinskamauu.github.io',
+  'http://localhost:5173',
+];
 
 //Routes declaration
 app.use(
